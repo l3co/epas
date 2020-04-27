@@ -17,6 +17,10 @@ defmodule EpasWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :index
+
+    resources "/users", UserController
+    resources "/logs", LogController
+
   end
 
   # Other scopes may use custom stacks.
