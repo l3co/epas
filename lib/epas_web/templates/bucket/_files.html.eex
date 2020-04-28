@@ -17,8 +17,10 @@
                     <i class="fas fa-file-download"></i>&nbsp;&nbsp;Download
                 </a>
 
-                <%= link "Delete", to: Routes.bucket_path(@conn, :delete, "#{@bucket}>#{String.replace(@file.key, "/", ">")}"),
-                method: :delete, data: [confirm: "Are you sure?"], class: "button is-danger" %>
+                <%= if @conn.assigns[:user].admin do %>
+                    <%= link "Delete", to: Routes.bucket_path(@conn, :delete, "#{@bucket}>#{String.replace(@file.key, "/", ">")}"),
+                    method: :delete, data: [confirm: "Are you sure?"], class: "button is-danger" %>
+                <% end %>
             </p>
         </div>
         </div>

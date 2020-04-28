@@ -1,3 +1,3 @@
 <a href="<%= Routes.bucket_path(@conn, :new, @path) %>" class="button is-black">
-    add <i class="far fa-file"></i>
+    add&nbsp;&nbsp;<i class="far fa-file"></i>
 </a>

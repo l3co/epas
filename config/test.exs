@@ -2,8 +2,8 @@ use Mix.Config
 
 # Configure your database
 config :epas, Epas.Repo,
-  username: "postgres",
-  password: "postgres",
+  username: "sa",
+  password: "sa",
   database: "epas_test",
   hostname: "localhost",
   pool: Ecto.Adapters.SQL.Sandbox

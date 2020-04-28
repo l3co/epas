@@ -12,6 +12,23 @@ defmodule EpasWeb.UserControllerTest do
     user
   end
 
+  setup %{conn: conn} do
+    {:ok, user} =
+      Account.create_user(%{
+        admin: true,
+        avatar: "some avatar",
+        email: "some email",
+        name: "some name",
+        token: "some token"
+      })
+
+    conn =
+      conn
+      |> Plug.Test.init_test_session(user_id: user.id)
+
+    {:ok, conn: conn}
+  end
+
   describe "index" do
     test "lists all users", %{conn: conn} do
       conn = get(conn, Routes.user_path(conn, :index))
@@ -19,28 +36,9 @@ defmodule EpasWeb.UserControllerTest do
     end
   end
 
-  describe "new user" do
-    test "renders form", %{conn: conn} do
-      conn = get(conn, Routes.user_path(conn, :new))
-      assert html_response(conn, 200) =~ "New User"
-    end
-  end
-
-  describe "create user" do
-    test "redirects to show when data is valid", %{conn: conn} do
-      conn = post(conn, Routes.user_path(conn, :create), user: @create_attrs)
-
-      assert %{id: id} = redirected_params(conn)
-      assert redirected_to(conn) == Routes.user_path(conn, :show, id)
-
-      conn = get(conn, Routes.user_path(conn, :show, id))
-      assert html_response(conn, 200) =~ "Show User"
-    end
-
-    test "renders errors when data is invalid", %{conn: conn} do
-      conn = post(conn, Routes.user_path(conn, :create), user: @invalid_attrs)
-      assert html_response(conn, 200) =~ "New User"
-    end
+  test "login page", %{conn: conn} do
+    conn = get(conn, "/")
+    assert html_response(conn, 302) =~ "Okta"
   end
 
   describe "edit user" do
