@@ -1,0 +1,14 @@
+<h1 class="title">Files <%= render "_add_file.html", path: "#{@bucket}>", conn: @conn %></h1>
+
+<div class="columns is-multiline is-desktop">
+  <%= for file <- @files do %>
+      <%= if String.ends_with?(file.key, "/") do  %>
+        <%= render "_folder_delimiter.html", file: file, path: "#{@bucket}>#{file.key}", conn: @conn %>
+      <% else %>
+        <%= render "_files.html", bucket: @bucket, file: file, conn: @conn %>
+      <% end %>
+  <% end %>
+</div>
+
+
+

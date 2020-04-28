@@ -20,7 +20,7 @@ defmodule Epas.MixProject do
   def application do
     [
       mod: {Epas.Application, []},
-      extra_applications: [:logger, :runtime_tools]
+      extra_applications: [:logger, :runtime_tools, :ueberauth, :ueberauth_okta]
     ]
   end
 
@@ -42,7 +42,18 @@ defmodule Epas.MixProject do
       {:phoenix_live_reload, "~> 1.2", only: :dev},
       {:gettext, "~> 0.11"},
       {:jason, "~> 1.0"},
-      {:plug_cowboy, "~> 2.0"}
+      {:plug_cowboy, "~> 2.0"},
+      ## configure s3 access
+      {:ex_aws, "~> 2.1"},
+      {:ex_aws_s3, "~> 2.0"},
+      {:hackney, "~> 1.15"},
+      {:sweet_xml, "~> 0.6"},
+      ## ueberauth
+      {:ueberauth, "~> 0.6"},
+      {:ueberauth_okta, "~> 0.1"},
+      {:poison, "~> 3.1"}
+      ## credo
+
     ]
   end
 

@@ -7,7 +7,7 @@ defmodule Epas.Repo.Migrations.CreateUsers do
       add :name, :string
       add :email, :string
       add :admin, :boolean, default: false, null: false
-      add :token, :string
+      add :token, :text
 
       timestamps()
     end

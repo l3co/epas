@@ -56,6 +56,28 @@ defmodule Epas.Account do
   end
 
   @doc """
+  Creates a user.
+
+  ## Examples
+
+      iex> create_or_update(%{field: value})
+      {:ok, %User{}}
+
+      iex> create_or_update(%{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def create_or_update(attrs) do
+    case Repo.get_by(User, email: attrs.email) do
+      nil ->
+        create_user(attrs)
+
+      user ->
+        update_user(user, attrs)
+    end
+  end
+
+  @doc """
   Updates a user.
 
   ## Examples
@@ -114,7 +136,7 @@ defmodule Epas.Account do
 
   """
   def list_logs do
-    Repo.all(Log)
+    Repo.all(Log) |> Repo.preload(:user)
   end
 
   @doc """

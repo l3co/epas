@@ -1,0 +1,18 @@
+<section class="hero is-fullheight">
+  <div class="hero-body">
+    <div class="container">
+      <div class="columns is-centered">
+        <div class="column is-5-tablet is-4-desktop is-3-widescreen">
+          <div class="box" style="text-align: center;">
+            <figure class="image" style="margin: 1.5em auto;">
+                <img src="<%= Routes.static_path(@conn, "/images/epas-logo.svg") %>">
+            </figure>
+            <a class="button is-dark is-large" href="<%= Routes.user_path(@conn, :request, "okta") %>">
+              <i class="fas fa-fingerprint"></i> &nbsp; Okta
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

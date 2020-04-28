@@ -4,28 +4,112 @@
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title><%= assigns[:page_title] || "Epas · Phoenix Framework" %></title>
+    <title><%= assigns[:page_title] || "EPAS - File Manager" %></title>
     <link rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/app.css") %>"/>
+    <link rel="icon" href="<%= Routes.static_path(@conn, "/images/icon.png") %>" sizes="16x16" type="image/png">
+
+    <script src="https://kit.fontawesome.com/52b0b8d1a9.js" crossorigin="anonymous"></script>
     <%= csrf_meta_tag() %>
   </head>
   <body>
-    <header>
-      <section class="container">
-        <nav role="navigation">
-          <ul>
-            <li><a href="https://hexdocs.pm/phoenix/overview.html">Get Started</a></li>
-          </ul>
-        </nav>
-        <a href="https://phoenixframework.org/" class="phx-logo">
-          <img src="<%= Routes.static_path(@conn, "/images/phoenix.png") %>" alt="Phoenix Framework Logo"/>
-        </a>
-      </section>
-    </header>
-    <main role="main" class="container">
-      <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
-      <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
-      <%= render @view_module, @view_template, assigns %>
-    </main>
-    <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
+    <section class="hero is-dark is-fullheight">
+    <div class="hero-head">
+      <nav class="navbar">
+        <div class="container">
+          <div class="navbar-brand">
+            <a class="navbar-item">
+              <h1 class="title"><i class="fas fa-file-export"></i>epas</h1>
+            </a>
+            <span class="navbar-burger burger" data-target="flowMenu">
+              <span></span>
+              <span></span>
+              <span></span>
+            </span>
+          </div>
+          <div id="flowMenu" class="navbar-menu">
+            <div class="navbar-end">
+              <%= if EpasWeb.LinkHelper.logged?(@conn) do %>
+                <%= link "Bucket", to: Routes.bucket_path(@conn, :index), class: "navbar-item" %>
+                <%= if EpasWeb.LinkHelper.admin?(@conn) do %>
+                  <%= link "Users", to: Routes.user_path(@conn, :index), class: "navbar-item" %>
+                  <%= link "Logs", to: Routes.log_path(@conn, :index), class: "navbar-item" %>
+                <% end %>
+                <div class="navbar-item">
+                  <a href="<%= Routes.user_path(@conn, :signout) %>" class="button is-black is-fullwidth" >
+                    <strong>
+                      <i class="fas fa-sign-out-alt"></i>
+                      Sign up
+                    </strong>
+                  </a>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </div>
+
+    <div class="hero-body">
+      <div class="container" role="main">
+        <%= unless is_nil(get_flash(@conn, :info)) do %>
+          <div class="notification is-primary">
+            <button class="delete"></button>
+            <%= get_flash(@conn, :info) %>
+          </div>
+        <% end %>
+
+        <%= unless is_nil(get_flash(@conn, :error)) do %>
+          <div class="notification is-danger">
+            <button class="delete"></button>
+            <%= get_flash(@conn, :error) %>
+          </div>
+        <% end %>
+
+        <%= render @view_module, @view_template, assigns %>
+      </div>
+    </div>
+
+    <div class="hero-foot">
+      <nav class="tabs is-boxed is-fullwidth">
+        <div class="container">
+
+        </div>
+      </nav>
+    </div>
+  </section>
+  <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        (document.querySelectorAll('.notification .delete') || []).forEach(($delete) => {
+          $notification = $delete.parentNode;
+
+          $delete.addEventListener('click', () => {
+            $notification.parentNode.removeChild($notification);
+          });
+        });
+        // Get all "navbar-burger" elements
+        const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+
+        // Check if there are any navbar burgers
+        if ($navbarBurgers.length > 0) {
+
+          // Add a click event on each of them
+          $navbarBurgers.forEach( el => {
+            el.addEventListener('click', () => {
+
+              // Get the target from the "data-target" attribute
+              const target = el.dataset.target;
+              const $target = document.getElementById(target);
+
+              // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
+              el.classList.toggle('is-active');
+              $target.classList.toggle('is-active');
+
+            });
+          });
+        }
+      });
+    </script>
   </body>
 </html>
+

@@ -30,3 +30,19 @@ config :phoenix, :json_library, Jason
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{Mix.env()}.exs"
+
+config :ex_aws,
+  json_codec: Jason,
+  region: {:system, "AWS_REGION"},
+  access_key_id: {:system, "AWS_ACCESS_KEY_ID"},
+  secret_access_key: {:system, "AWS_SECRET_ACCESS_KEY"}
+
+config :ueberauth, Ueberauth,
+  providers: [
+    okta: {Ueberauth.Strategy.Okta, []}
+  ]
+
+config :ueberauth, Ueberauth.Strategy.Okta.OAuth,
+  client_id: System.get_env("OKTA_CLIENT_ID"),
+  client_secret: System.get_env("OKTA_CLIENT_SECRET"),
+  site: System.get_env("OKTA_SITE")

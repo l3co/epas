@@ -1,0 +1,7 @@
+<hr>
+<div class="column is-four-fifths">
+    <h2 class="title">
+        <i class="fas fa-folder-open"></i>&nbsp;<%= @file.key %>&nbsp;
+        <%= render "_add_file.html", path: @path, conn: @conn %></h1>
+    </h2>
+</div>

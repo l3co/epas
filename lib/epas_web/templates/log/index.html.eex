@@ -1,28 +1,22 @@
-<h1>Listing Logs</h1>
+<h1 class="title">Listing Logs</h1>
 
-<table>
+<table class="table is-fullwidth">
   <thead>
     <tr>
+      <th>User</th>
       <th>Operation</th>
       <th>Info</th>
-
-      <th></th>
+      <th>Date</th>
     </tr>
   </thead>
   <tbody>
-<%= for log <- @logs do %>
+  <%= for log <- @logs do %>
     <tr>
+      <td><%= log.user.name %></td>
       <td><%= log.operation %></td>
       <td><%= log.info %></td>
-
-      <td>
-        <span><%= link "Show", to: Routes.log_path(@conn, :show, log) %></span>
-        <span><%= link "Edit", to: Routes.log_path(@conn, :edit, log) %></span>
-        <span><%= link "Delete", to: Routes.log_path(@conn, :delete, log), method: :delete, data: [confirm: "Are you sure?"] %></span>
-      </td>
+      <td><%= log.inserted_at %></td>
     </tr>
-<% end %>
+  <% end %>
   </tbody>
 </table>
-
-<span><%= link "New Log", to: Routes.log_path(@conn, :new) %></span>
