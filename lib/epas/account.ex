@@ -136,7 +136,14 @@ defmodule Epas.Account do
 
   """
   def list_logs do
-    Repo.all(Log) |> Repo.preload(:user)
+    query =
+      from l in Log,
+        join: u in User,
+        on: l.user_id == u.id,
+        order_by: [asc: l.inserted_at],
+        select: l
+
+    Repo.all(query) |> Repo.preload(:user)
   end
 
   @doc """

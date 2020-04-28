@@ -1,12 +1,23 @@
+<style>
+  thead, tbody{
+    display: block;
+  }
+
+  tbody{
+    overflow-y: scroll;
+    height: 400px;
+  }
+</style>
+
 <h1 class="title">Listing Logs</h1>
 
 <table class="table is-fullwidth">
   <thead>
     <tr>
-      <th>User</th>
-      <th>Operation</th>
-      <th>Info</th>
-      <th>Date</th>
+      <th style="width: 5%">User</th>
+      <th style="width: 5%">Operation</th>
+      <th style="width: 70%">Info</th>
+      <th style="width: 10%">Date</th>
     </tr>
   </thead>
   <tbody>
