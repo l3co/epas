@@ -51,9 +51,9 @@ defmodule Epas.MixProject do
       ## ueberauth
       {:ueberauth, "~> 0.6"},
       {:ueberauth_okta, "~> 0.1"},
-      {:poison, "~> 3.1"}
+      {:poison, "~> 3.1"},
       ## credo
-
+      {:credo, "~> 1.4", only: [:dev, :test], runtime: false}
     ]
   end
 

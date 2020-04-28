@@ -4,7 +4,6 @@ defmodule EpasWeb.BucketController do
   plug :audit_log
 
   def index(conn, _params) do
-
     buckets =
       ExAws.S3.list_buckets()
       |> ExAws.request!()
@@ -45,13 +44,9 @@ defmodule EpasWeb.BucketController do
     end
   end
 
-  defp extract_file_name(tail) do
-    if length(tail) == 1 do
-      tail
-    else
-      tl(tail)
-    end
-  end
+  defp extract_file_name(tail) when length(tail) == 1, do: tail
+
+  defp extract_file_name(tail), do: tl(tail)
 
   def delete(conn, %{"path" => path}) do
     [bucket | tail] = String.split(path, ">")
@@ -81,6 +76,12 @@ defmodule EpasWeb.BucketController do
     |> redirect(to: Routes.bucket_path(conn, :show, bucket))
   end
 
+  def create(conn, %{"path" => path}) do
+    conn
+    |> put_flash(:error, "File required")
+    |> redirect(to: Routes.bucket_path(conn, :new, path))
+  end
+
   def audit_log(conn, _opts) do
     Epas.Account.create_log(%{
       operation: conn.method,
@@ -89,5 +90,4 @@ defmodule EpasWeb.BucketController do
     })
     conn
   end
-
 end
