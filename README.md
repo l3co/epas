@@ -1,6 +1,32 @@
 # Epas
 
-To start your Phoenix server:
+---
+
+- **E** - Elixir
+- **P** - Phoenix
+- **A** - Aws
+- **S** - S3
+
+**Bonus** .: _Authentication with Okta_
+
+---
+
+### Environments 
+
+```bash
+AWS_REGION=""
+AWS_ACCESS_KEY_ID=""
+AWS_SECRET_ACCESS_KEY=""
+
+# Okta configuration
+OKTA_CLIENT_ID=""
+OKTA_CLIENT_SECRET=""
+OKTA_SITE="https://{hostname}.okta.com"
+```
+
+---
+
+### To start your Phoenix server:
 
   * Install dependencies with `mix deps.get`
   * Create and migrate your database with `mix ecto.setup`
